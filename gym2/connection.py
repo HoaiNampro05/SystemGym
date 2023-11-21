@@ -131,42 +131,64 @@ def getTrieuChungTheoVCTvaNCH(VungChanThuong,NhomCauHoi):
         tc= TrieuChung(row[0], row[1], row[2],row[3])
         ls.append(tc)
     return ls
-def getLuaTheoDSTT():
-    # Danh sách id triệu chứng
-    dsTrieuChung = [1, 2, 3, 5]
-
-    # Tạo kết nối đến cơ sở dữ liệu
+def getTrieuChung_LuatTheoLuat(luat):
     connection = get_connection()
     cursor = connection.cursor()
-
-    # Tạo truy vấn SQL
-    placeholders = ', '.join(['%s'] * len(dsTrieuChung))  # Tạo placeholders cho truy vấn
-    sql = f"""
-    SELECT L.id, L.moTa
-    FROM Luat L
-    INNER JOIN TrieuChung_Luat TL ON L.id = TL.idLuat
-    WHERE TL.idTrieuChung IN ({placeholders})
-    GROUP BY L.id, L.moTa
-    HAVING COUNT(DISTINCT TL.idTrieuChung) = %s;
-    """
-
-    # Thực thi truy vấn
-    cursor.execute(sql, dsTrieuChung + [len(dsTrieuChung)])
-
-    # Lấy kết quả truy vấn
-    luats = cursor.fetchall()
-
-    # In ra các luật tìm được
-    for luat in luats:
-        print(luat)
+    ls = []
+    cursor.execute(f"SELECT * FROM TrieuChung_Luat where idLuat = {luat.id}")
+    results = cursor.fetchall()
+    for row in results:
+        tcl = TrieuChung_Luat(row[0], row[1], row[2])
+        ls.append(tcl)
+    return ls
 
 
-getLuaTheoDSTT()
-# ls = getVungChanThuong()
-# for x in ls:
-#     print(x.moTa)
-# print("x------------")
-# ls1 = getVungChanThuongByCha(ls[0])
-# for x in ls1:
-#     print(x.moTa)
+def checkLuatVaDSTC(luat,dstt):
+    ds = getTrieuChung_LuatTheoLuat(luat)
+    if len(ds)!=len(dstt):
+        return False
+    for x in dstt:
+        flag = False
+        for y in ds:
+            if x.id == y.idTrieuChung:
+                flag = True
+                break
+        if flag==False:
+            return False
+    return True
+
+def getLuatTheoDSTC(dstt):
+    ds =[]
+    dsl = getLuat()
+    for x in dsl:
+        if checkLuatVaDSTC(x,dstt):
+            ds.append(x)
+    if len(ds)==0:
+        return None
+    return ds[0]
+
+def getChuanDoanTheoLuat(luat):
+    sql = f"SELECT ChuanDoan.*  FROM ChuanDoan JOIN ChuanDoan_Luat ON ChuanDoan.id = ChuanDoan_Luat.idChuanDoan WHERE ChuanDoan_Luat.idLuat = {luat.id}  ORDER BY ChuanDoan_Luat.khaNang DESC"
+    connection = get_connection()
+    cursor = connection.cursor()
+    ls = []
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    for row in results:
+        cd = ChuanDoan(row[0], row[1])
+        ls.append(cd)
+    return ls
+
+
+def getPPDTTheoChuanDoan(chuanDoan):
+    sql = f"SELECT PPDieuTri. FROM PPDieuTri JOIN ChuanDoan_PPDieuTri ON PPDieuTri.id = ChuanDoan_PPDieuTri.idPPDieuTri WHERE ChuanDoan_PPDieuTri.idChuanDoan = {chuanDoan.id};"
+    connection = get_connection()
+    cursor = connection.cursor()
+    ls = []
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    for row in results:
+        ppdt = PPDieuTri(row[0], row[1])
+        ls.append(ppdt)
+    return ls
 
