@@ -1,6 +1,7 @@
 from models import VungChanThuong
 from connection import *
-
+from colorama import Fore, Back, Style,init
+init()
 def hoiVungChanThuong():
     cha = VungChanThuong(1,'root',0)
     while True:
@@ -13,25 +14,30 @@ def hoiVungChanThuong():
             print(f"Để cụ thể hơn trong vùng {cha.moTa} bạn cảm thấy đau ở đâu trong các vùng dưới đây")
         i = 1
         for x in ls:
-            print(i,". ",x.moTa)
+            print(str(i)+". "+x.moTa)
             i += 1
         ans = int(input("Lựa chọn 1 phương án: \n"))
         cha = ls[ans-1]
     return cha
 
 def hoiDanhSachTrieuChung(vungChanThuong):
-    dsNhomCauHoi = getNhomCauHoi()
+    dsCauHoi = getCauHoi()
     lsans =[]
-    for nch in dsNhomCauHoi:
-        ls = getTrieuChungTheoVCTvaNCH(vungChanThuong,nch)
+    for ch in dsCauHoi:
+        ls = getTrieuChungTheoVCTvaNCH(vungChanThuong,ch)
         if len(ls)>0:
-            print(nch.moTa)
+            print(ch.moTa)
             d = 1
             for x in ls:
-                print(d,x.moTa)
+                print(d,".",x.moTa)
                 d+=1
-            ans = int(input("Lựa chọn 1 phương án: \n"))
-            lsans.append(ls[ans-1])
+            if ch.loai==1:
+                ans = int(input("Lựa chọn 1 phương án: \n"))
+                lsans.append(ls[ans-1])
+            else:
+                ans = list(map(int,input("Bạn có thể lựa chọn nhiều phương án: \n").split()))
+                for k in ans:
+                    lsans.append(ls[k-1])
     return lsans
 
 
@@ -41,10 +47,10 @@ def duaRaLoiKhuyen(dschuandoan):
     for cd in dschuandoan:
         if d11 == 1:
             print("Theo chatbot chuẩn đoán bạn có thể bị:")
-            print(cd.moTa)
+            print(Fore.YELLOW+Style.BRIGHT+cd.moTa)
         if d11 > 1:
-            print(cd.moTa)
-        print("Sau đây là lời khuyên dành cho bạn")
+            print(Fore.YELLOW+Style.BRIGHT+cd.moTa)
+        print(Fore.BLUE+Style.BRIGHT+"Sau đây là lời khuyên dành cho bạn")
         dsPPDT = getPPDTTheoChuanDoan(cd)
         d2 = len(dsPPDT)
         d22 = 1
@@ -52,7 +58,7 @@ def duaRaLoiKhuyen(dschuandoan):
             print("Bạn có thể dùng phương pháp sau nhé: ")
             print(ppdt.moTa)
             print("Chatbot muốn hỏi bạn rằng bạn đã thực hiện phương pháp trên chưa, nếu đã từng hãy cho Chatbot biết "
-                  "có hiệu quả không\n")
+                  "có hiệu quả không?")
             print("1. Chưa thực hiên")
             print("2. Đã thực hiện và thấy tốt")
             print("3. Đã thực hiện và thấy không tốt")
@@ -67,7 +73,7 @@ def duaRaLoiKhuyen(dschuandoan):
                 print("Ồ vậy thì!!!")
             if ans == 3 and d22 == d2:
                 if d11 < d1:
-                    print("Nếu bạn thử các phương pháp trên Chatbot nghi nghờ bạn có thể bị:")
+                    print("Nếu bạn đã thử các phương pháp trên mà vẫn không có dấu hiệu tích cực, Chatbot nghi nghờ bạn có thể bị:")
                 if d11 == d1:
                     print("Chúng tôi đã cố gắng hết sức!!!")
                     return
@@ -76,7 +82,7 @@ def duaRaLoiKhuyen(dschuandoan):
 
 
 def tuVan():
-    a = input("Bạn đang muốn tư vấn chấn thương đúng không [y or n]: \n")
+    a = input(Fore.BLUE+Style.BRIGHT+"Bạn đang muốn tư vấn chấn thương đúng không [y or n]: \n")
     if a == 'y':
         vct = hoiVungChanThuong()
         dstc = hoiDanhSachTrieuChung(vct)
@@ -87,6 +93,7 @@ def tuVan():
         if luat == None:
             print("Xin lỗi vs danh sách triệu chứng như vậy Chatbot chưa thể đưa chuẩn đoán")
             return
+        print(luat.id,luat.moTa)
         dschuandoan = getChuanDoanTheoLuat(luat)
         print(len(dschuandoan))
         duaRaLoiKhuyen(dschuandoan)

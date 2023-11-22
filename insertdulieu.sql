@@ -51,9 +51,9 @@ INSERT INTO VungChanThuong (id, moTa, idCha) VALUES (26, 'Vai', 3);
 -- -----------------------------------------------------
 -- insert vào nhóm câu hỏi
 -- -----------------------------------------------------
-INSERT INTO NhomCauHoi (id, moTa) VALUES (1, 'Bạn có thể mô tả mức độ đau như thế nào?');
-INSERT INTO NhomCauHoi (id, moTa) VALUES (2, 'Bạn có dấu hiệu nào đi kèm không?');
-INSERT INTO NhomCauHoi (id, moTa) VALUES (3, 'Bạn gặp phải triệu chứng này đã bao lâu rồi?');
+INSERT INTO CauHoi (id, moTa,loai) VALUES (1, 'Bạn có thể mô tả mức độ đau như thế nào?',1);
+INSERT INTO CauHoi (id, moTa,loai) VALUES (2, 'Bạn có dấu hiệu nào đi kèm không?',2);
+INSERT INTO CauHoi (id, moTa,loai) VALUES (3, 'Bạn gặp phải triệu chứng này đã bao lâu rồi?',1);
 
 
 -- -----------------------------------------------------
@@ -61,27 +61,27 @@ INSERT INTO NhomCauHoi (id, moTa) VALUES (3, 'Bạn gặp phải triệu chứng
 -- -----------------------------------------------------
 
 -- Phương án cho câu hỏi về mức độ đau
-INSERT INTO TrieuChung (id, moTa, idVungChanThuong, idNhomCauHoi) VALUES (1, 'Nhẹ: Đau nhẹ, có thể cử động cổ tay nhưng cảm thấy khó chịu.', 24, 1);
-INSERT INTO TrieuChung (id, moTa, idVungChanThuong, idNhomCauHoi) VALUES (2, 'Vừa: Đau đủ để gây khó khăn trong việc cử động, đôi khi cảm giác nóng rát hoặc đau nhói.', 24, 1);
-INSERT INTO TrieuChung (id, moTa, idVungChanThuong, idNhomCauHoi) VALUES (3, 'Nặng: Đau nghiêm trọng, gần như không thể cử động cổ tay hoặc chịu đựng được khi di chuyển.', 24, 1);
+INSERT INTO TrieuChung (id, moTa, idVungChanThuong, idCauHoi) VALUES (1, 'Nhẹ: Đau nhẹ, có thể cử động cổ tay nhưng cảm thấy khó chịu.', 24, 1);
+INSERT INTO TrieuChung (id, moTa, idVungChanThuong, idCauHoi) VALUES (2, 'Vừa: Đau đủ để gây khó khăn trong việc cử động, đôi khi cảm giác nóng rát hoặc đau nhói.', 24, 1);
+INSERT INTO TrieuChung (id, moTa, idVungChanThuong, idCauHoi) VALUES (3, 'Nặng: Đau nghiêm trọng, gần như không thể cử động cổ tay hoặc chịu đựng được khi di chuyển.', 24, 1);
 
 -- Phương án cho câu hỏi về dấu hiệu đi kèm
-INSERT INTO TrieuChung (id, moTa, idVungChanThuong, idNhomCauHoi) VALUES (4, 'Sưng: Cổ tay của bạn có sưng lên không?', 24, 2);
-INSERT INTO TrieuChung (id, moTa, idVungChanThuong, idNhomCauHoi) VALUES (5, 'Bầm tím: Có bất kỳ dấu hiệu bầm tím hay thay đổi màu da không?', 24, 2);
-INSERT INTO TrieuChung (id, moTa, idVungChanThuong, idNhomCauHoi) VALUES (6, 'Nhiệt độ: Cổ tay của bạn có cảm giác nóng hoặc lạnh bất thường không?', 24, 2);
-INSERT INTO TrieuChung (id, moTa, idVungChanThuong, idNhomCauHoi) VALUES (7, 'Tê cóng: Bạn có cảm giác tê cứng hoặc kiến bò ở cổ tay hoặc ngón tay không?', 24, 2);
+INSERT INTO TrieuChung (id, moTa, idVungChanThuong, idCauHoi) VALUES (4, 'Sưng: Cổ tay của bạn có sưng lên không?', 24, 2);
+INSERT INTO TrieuChung (id, moTa, idVungChanThuong, idCauHoi) VALUES (5, 'Bầm tím: Có bất kỳ dấu hiệu bầm tím hay thay đổi màu da không?', 24, 2);
+INSERT INTO TrieuChung (id, moTa, idVungChanThuong, idCauHoi) VALUES (6, 'Nhiệt độ: Cổ tay của bạn có cảm giác nóng hoặc lạnh bất thường không?', 24, 2);
+INSERT INTO TrieuChung (id, moTa, idVungChanThuong, idCauHoi) VALUES (7, 'Tê cóng: Bạn có cảm giác tê cứng hoặc kiến bò ở cổ tay hoặc ngón tay không?', 24, 2);
 
 -- Phương án cho câu hỏi về thời gian gặp phải triệu chứng
-INSERT INTO TrieuChung (id, moTa, idVungChanThuong, idNhomCauHoi) VALUES (8, 'Mới xảy ra: Triệu chứng mới xuất hiện trong vòng vài giờ.', 24, 3);
-INSERT INTO TrieuChung (id, moTa, idVungChanThuong, idNhomCauHoi) VALUES (9, 'Ngắn hạn: Triệu chứng kéo dài vài ngày.', 24, 3);
-INSERT INTO TrieuChung (id, moTa, idVungChanThuong, idNhomCauHoi) VALUES (10, 'Dài hạn: Triệu chứng đã tồn tại nhiều tuần hoặc lâu hơn.', 24, 3);
+INSERT INTO TrieuChung (id, moTa, idVungChanThuong, idCauHoi) VALUES (8, 'Mới xảy ra: Triệu chứng mới xuất hiện trong vòng vài giờ.', 24, 3);
+INSERT INTO TrieuChung (id, moTa, idVungChanThuong, idCauHoi) VALUES (9, 'Ngắn hạn: Triệu chứng kéo dài vài ngày.', 24, 3);
+INSERT INTO TrieuChung (id, moTa, idVungChanThuong, idCauHoi) VALUES (10, 'Dài hạn: Triệu chứng đã tồn tại nhiều tuần hoặc lâu hơn.', 24, 3);
 
 
 -- -----------------------------------------------------
 -- insert vào bảng luat
 -- -----------------------------------------------------
 
-delete from luat where id>0
+
 insert into luat(id,moTa) values(1,'luật 1 cổ tay');
 INSERT INTO Luat (id, moTa) VALUES (2, 'luật 2 cổ tay');
 INSERT INTO Luat (id, moTa) VALUES (3, 'luật 3 cổ tay');
@@ -90,9 +90,10 @@ INSERT INTO Luat (id, moTa) VALUES (3, 'luật 3 cổ tay');
 -- insert vào bảng TrieuChung_luat
 -- -----------------------------------------------------
 
-INSERT INTO TrieuChung_Luat (id, idTrieuChung, idLuat) VALUES (2, 3, 2);
-INSERT INTO TrieuChung_Luat (id, idTrieuChung, idLuat) VALUES (3, 5, 2);
-INSERT INTO TrieuChung_Luat (id, idTrieuChung, idLuat) VALUES (4, 9, 2);
+INSERT INTO TrieuChung_Luat (id, idTrieuChung, idLuat) VALUES (1, 3, 2);
+INSERT INTO TrieuChung_Luat (id, idTrieuChung, idLuat) VALUES (2, 5, 2);
+INSERT INTO TrieuChung_Luat (id, idTrieuChung, idLuat) VALUES (3, 4, 2);
+INSERT INTO TrieuChung_Luat (id, idTrieuChung, idLuat) VALUES (4, 10, 2);
 
 -- Các triệu chứng cho luật 3
 INSERT INTO TrieuChung_Luat (id, idTrieuChung, idLuat) VALUES (5, 3, 3);

@@ -110,22 +110,22 @@ def getChuanDoan_PPDieuTri():
         ls.append(cdpt)
     return ls
 
-def getNhomCauHoi():
+def getCauHoi():
     connection = get_connection()
     cursor = connection.cursor()
     ls = []
-    cursor.execute("SELECT * FROM NhomCauHoi")
+    cursor.execute("SELECT * FROM CauHoi")
     results = cursor.fetchall()
     for row in results:
-        nch = NhomCauHoi(row[0], row[1])
-        ls.append(nch)
+        ch = CauHoi(row[0], row[1],row[2])
+        ls.append(ch)
     return ls
 
-def getTrieuChungTheoVCTvaNCH(VungChanThuong,NhomCauHoi):
+def getTrieuChungTheoVCTvaNCH(VungChanThuong,cauHoi):
     connection = get_connection()
     cursor = connection.cursor()
     ls = []
-    cursor.execute(f"SELECT * FROM TrieuChung where idVungChanThuong={VungChanThuong.id} and idNhomCauhoi={NhomCauHoi.id}")
+    cursor.execute(f"SELECT * FROM TrieuChung where idVungChanThuong={VungChanThuong.id} and idCauhoi={cauHoi.id}")
     results = cursor.fetchall()
     for row in results:
         tc= TrieuChung(row[0], row[1], row[2],row[3])

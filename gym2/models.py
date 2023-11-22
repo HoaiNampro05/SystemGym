@@ -5,17 +5,18 @@ class VungChanThuong:
         self.idCha = idCha
 
 
-class NhomCauHoi:
-    def __init__(self, id, moTa):
+class CauHoi:
+    def __init__(self, id, moTa,loai):
         self.id = id
         self.moTa = moTa
+        self.loai = loai
 
 class TrieuChung:
-    def __init__(self, id, moTa,idVungChanThuong,idNhomCauHoi):
+    def __init__(self, id, moTa,idVungChanThuong,idCauHoi):
         self.id = id
         self.moTa = moTa
         self.idVungChanThuong = idVungChanThuong
-        self.idNhomCauHoi = idNhomCauHoi
+        self.idCauHoi = idCauHoi
 class TrieuChung_Luat:
     def __init__(self, id, idTrieuChung, idLuat):
         self.id = id
