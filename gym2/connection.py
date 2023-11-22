@@ -160,12 +160,12 @@ def checkLuatVaDSTC(luat,dstt):
 def getLuatTheoDSTC(dstt):
     ds =[]
     dsl = getLuat()
+    luat=None
     for x in dsl:
         if checkLuatVaDSTC(x,dstt):
-            ds.append(x)
-    if len(ds)==0:
-        return None
-    return ds[0]
+            luat=x
+            break
+    return luat
 
 def getChuanDoanTheoLuat(luat):
     sql = f"SELECT ChuanDoan.*  FROM ChuanDoan JOIN ChuanDoan_Luat ON ChuanDoan.id = ChuanDoan_Luat.idChuanDoan WHERE ChuanDoan_Luat.idLuat = {luat.id}  ORDER BY ChuanDoan_Luat.khaNang DESC"
@@ -181,7 +181,7 @@ def getChuanDoanTheoLuat(luat):
 
 
 def getPPDTTheoChuanDoan(chuanDoan):
-    sql = f"SELECT PPDieuTri. FROM PPDieuTri JOIN ChuanDoan_PPDieuTri ON PPDieuTri.id = ChuanDoan_PPDieuTri.idPPDieuTri WHERE ChuanDoan_PPDieuTri.idChuanDoan = {chuanDoan.id};"
+    sql = f"SELECT PPDieuTri.* FROM PPDieuTri JOIN ChuanDoan_PPDieuTri ON PPDieuTri.id = ChuanDoan_PPDieuTri.idPPDieuTri WHERE ChuanDoan_PPDieuTri.idChuanDoan = {chuanDoan.id};"
     connection = get_connection()
     cursor = connection.cursor()
     ls = []
